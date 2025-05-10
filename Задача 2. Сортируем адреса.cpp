@@ -6,30 +6,33 @@
 class Address
 {
 private:
-	std::string __city;
-	std::string __street;
-	int __house;
-	int __flat;
+	std::string city__;
+	std::string street__;
+	int house__;
+	int flat__;
 public:
 	Address(std::string city, std::string street, int house, int flat)
 	{
-		__city = city;
-		__street = street;
-		__house = house;
-		__flat = flat;
+		city__ = city;
+		street__ = street;
+		house__ = house;
+		flat__ = flat;
 	}
 	Address()
 	{
-		__city = "city";
-		__street = "street";
-		__house = 0;
-		__flat = 0;
+		city__ = "city";
+		street__ = "street";
+		house__ = 0;
+		flat__ = 0;
 	}
-	std::string get_output_address(Address arr[], int count)
+	std::string get_output_address() const
 	{
-		std::string addres = arr[count].__city + ", " + arr[count].__street + ", " + std::to_string(arr[count].__house) + ", " + std::to_string(arr[count].__flat);
+		std::string addres = city__ + ", " + street__ + ", " + std::to_string(house__) + ", " + std::to_string(flat__);
 		return addres;
 	}
+	friend void sort(Address* arr, int count);
+};
+
 	void sort(Address* arr, int count)
 	{
 		bool swapped;
@@ -38,7 +41,7 @@ public:
 			swapped = false;
 			for (int counter = 1; counter < count; counter++)
 			{
-				if (arr[counter - 1].__city > arr[counter].__city)
+				if (arr[counter - 1].city__ > arr[counter].city__)
 				{
 					Address temp = arr[counter - 1];
 					arr[counter - 1] = arr[counter];
@@ -48,7 +51,6 @@ public:
 			}
 		} while (swapped);
 	}
-};
 
 int main()
 {
@@ -71,14 +73,14 @@ int main()
 			arr[counter] = { city, street, house, flat };
 		}
 		in_address.close();
-		arr->sort(arr, quantity);
+		sort(arr, quantity);
 		std::ofstream out_address("out.txt");
 		if (out_address.is_open())
 		{
 			out_address << quantity << std::endl;
 			for (int counter = 0; counter < quantity; counter++)
 			{
-				out_address << arr->get_output_address(arr, counter) << std::endl;
+				out_address << arr[counter].get_output_address() << std::endl;
 			}
 		}
 		else

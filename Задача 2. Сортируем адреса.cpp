@@ -70,7 +70,7 @@ int main()
 			in_address >> street;
 			in_address >> house;
 			in_address >> flat;
-			arr[counter] = { city, street, house, flat };
+			arr[counter] = Address { city, street, house, flat };
 		}
 		in_address.close();
 		sort(arr, quantity);
